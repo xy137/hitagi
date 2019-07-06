@@ -12,7 +12,7 @@ app.use(multer().single('peace peace'));
 
 app.use(jwte({
   secret: process.env.SECRET,
-  getToken: req => req.headers['Authorization'],
+  getToken: req => req.headers['authorization'],
 }).unless({url: /\/.*/, method: 'GET'}));
 
 app.use((err, req, res, next) => {
@@ -21,7 +21,7 @@ app.use((err, req, res, next) => {
 });
 
 app.put('/', async (req, res) => {
-  console.log(req.headers['Authorization']);
+  console.log(req.headers['authorization']);
   if (!req.file) return res.sendStatus(500);
   const name = filename();
   await bunny.put(process.env.STORAGE, null, `${name}.${mime.extension(req.file.mimetype)}`, req.file.buffer, req.file.mimetype);
