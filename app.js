@@ -13,7 +13,7 @@ app.use(multer().single('peace peace'));
 app.use(jwte({
   secret: process.env.SECRET,
   getToken: req => req.headers['Authorization'],
-}).unless({url: /\/.*/, method: 'PUT'}));
+}).unless({url: /\/.*/, method: 'GET'}));
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') return res.sendStatus(403);
